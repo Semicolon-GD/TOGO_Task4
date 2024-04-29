@@ -10,12 +10,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float verticalMovementSensitivity;
     [SerializeField] private Transform stackPoint;
+    [SerializeField] private Animator playerAnimator;
     
     private List<GameObject> _stackList = new List<GameObject>();
     private float _givenSpeed;
-    readonly float  _horizontalRange = 6f;
+    readonly float  _horizontalRange = 4.2f;
     private float _horizontalOffset;
     private Rigidbody _rigidbody;
+    
+
     private void Start()
     {
         _rigidbody=gameObject.GetComponent<Rigidbody>();
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
     private void StartMovement()
     {
         forwardSpeed= _givenSpeed;
+        playerAnimator.SetBool("isRunning",true);
     }
     
     private void HorizontalMovement(float horizontal)
@@ -72,6 +76,7 @@ public class PlayerController : MonoBehaviour
     private void VerticalMovement()
     {
         _rigidbody.AddForce(0,10,0,ForceMode.Impulse);
+        playerAnimator.SetTrigger("Jump");
     }
     
     void StackPoints(GameObject collectible)
@@ -97,16 +102,20 @@ public class PlayerController : MonoBehaviour
     }
     void GameOver()
     {
-        Debug.Log("Game Over");
+        InputController.Dragging -= HorizontalMovement;
+        playerAnimator.SetTrigger("Fail");
+        forwardSpeed = 0;
     }
     
     void GameWon()
     {
-        Debug.Log("Game Won");
+        transform.Rotate(0,180,0);
+        playerAnimator.SetTrigger("Win");
+        forwardSpeed = 0;
     }
     
     #endregion
 
 
-  
+    
 }

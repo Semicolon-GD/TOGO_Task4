@@ -44,7 +44,13 @@ public class ObstacleController : MonoBehaviour
         }
        
     }
-    
-    
-    
+
+    private void Update()
+    {
+        if (propType == PropType.Collectible)
+        {
+            transform.Rotate(Vector3.up, 100 * Time.deltaTime);
+        }
+        
+    }
 }

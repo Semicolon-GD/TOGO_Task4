@@ -36,6 +36,15 @@ public class ScoreSystem : MonoBehaviour
     void UpdateScoreText(int score)
     {
         scoreText.text = score.ToString();
+        if (score>0)
+        {
+            scoreText.color = Color.green;
+        }
+        else
+        {
+            scoreText.color = Color.red;
+        }
+       
     }
 
     private static void Add(GameObject other)
