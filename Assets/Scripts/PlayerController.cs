@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalMovementSensitivity;
     [SerializeField] private Transform stackPoint;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private ParticleSystem winParticle;
     
     private List<GameObject> _stackList = new List<GameObject>();
     private float _givenSpeed;
@@ -112,6 +113,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(0,180,0);
         playerAnimator.SetTrigger("Win");
         forwardSpeed = 0;
+        winParticle.Play();
     }
     
     #endregion
